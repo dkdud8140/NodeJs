@@ -1,0 +1,211 @@
+<style>
+	div#tView, div#menuBord div#orderList {
+		height: 100%;
+	}
+	div#tView {
+		display: flex;
+	}
+	div#menuBord {
+		flex: 4;
+	}
+	div#menu_label {
+		height: 20vh;
+		display: flex;
+		flex-wrap: wrap;
+		border-bottom: 1px solid #333;
+	}
+	div#menu_label div{
+		width: 18%;
+		height: 8vh;
+		display: inline-block;
+		border-radius: 10px;
+		background-color: white;
+		border : 1px solid #ccc;
+		margin: 20px auto ;
+		text-align: center;
+		line-height: 8vh;
+	}
+	div#menu_label div:hover{
+		border : 1px solid rgba(0, 0, 0, 0);
+		background-color: rgba(51, 51, 51, 0.5);
+		color: wheat;
+		cursor: pointer;
+	}
+
+	div#menu_list {
+		width: 100%;
+		height: 73vh;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-template-rows : repeat(4,1fr) ;
+		gap : 15px;
+		padding: 15px;
+	}
+
+	div#menu_list div.menu_select {
+		background-color: wheat;
+		border-radius: 10px;
+		text-align: center;
+		padding-top: 20%;
+		z-index: 10;
+	}
+
+	div#menu_list div.menu_select:hover {
+		cursor: pointer;
+		background-color: #333;
+		color: wheat;
+	}
+
+	div#menu_page {
+		width: 100%;
+		height: 5vh;
+		background-color: teal;
+	}
+
+	div#orderList {
+		flex: 2;
+		overflow-x: hidden;
+        overflow-y: auto;
+	}
+
+	table.orders {
+		width: 90%;
+		height: 90%;
+		margin: 5%;
+		text-align: center;
+		border-collapse: collapse;
+	}
+
+
+
+	table.orders thead{
+		height: 10%;
+		width: 100%;
+		background-color: rgb(248, 241, 223);
+		border-top: 1px solid #666;
+		position: sticky;
+		top: 0;
+	}
+	table.orders td {
+		border-bottom: 1px solid #666;
+		border-right: 1px solid #666;
+	}
+	table.orders td:nth-of-type(1) {
+		width: 5%;
+		border-left: 1px solid #666;
+	}
+	table.orders td:nth-of-type(2) {
+		width: 40%;
+	}
+	table.orders tbody {
+		height: 80%;
+		overflow: scroll;
+	}
+	table.orders tbody tr + td{
+		height: 20px;
+	}
+
+	table.orders tfoot{
+		height: 10%;
+		background-color: rgb(248, 241, 223);
+		position: sticky;
+		bottom: 0;
+	}
+
+</style>
+
+
+<div id= "tView">
+
+	<div id = "menuBord">
+		<div id="menu_label">
+			<div id="tabmenu" data-tmenu="kim">김밥</div>
+			<div id="tabmenu" data-tmenu="bun">분식류</div>
+			<div id="tabmenu" data-tmenu="sic">식사류</div>
+			<div id="tabmenu" data-tmenu="sea">계절메뉴</div>
+			<div id="tabmenu" data-tmenu="kita">기타</div>
+		</div>
+
+		<div id="menu_list">
+			<% PRODUCT.forEach((vo,index)=>{ %>
+				<div class = "menu_select" data-pcode="<%- vo.p_code %>" >
+					<h1><%- vo.p_name %></h1>
+					<h2><%- vo.p_price %></h2>
+				</div>
+			<% }) %>	
+		</div>
+
+		<div id="menu_page"></div>
+	</div>
+
+	<div id = "orderList">
+		<table class = "orders">
+			<thead>	
+				<tr>
+					<td>No</td>
+					<td>상품명</td>
+					<td>단가</td>
+					<td>수량</td>
+					<td>합계</td>
+				</tr>
+			</thead>
+
+			<tbody>
+			</tbody>	
+			
+			<tfoot>
+				<tr>
+					<td>합계</td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+</div>
+
+
+<script>
+	const url = new URL(window.location.href);
+	const urlParam = url.searchParams;
+	const tnum = urlParam.get('tnum');
+	const tmenu = urlParam.get('tmenu');
+
+	document.querySelector('div#menuBord').addEventListener("click",(e)=>{
+		const tabmenu = e.target;
+		
+		if(tabmenu.id == "tabmenu") {
+			const tmenu = tabmenu.dataset.tmenu;
+			if(tmenu == "kim") {
+				document.location.href = `/pos/tview/?tnum=${tnum}&tmenu=${tmenu}`
+			} else if(tmenu == "bun") {
+				document.location.href = `/pos/tview/?tnum=${tnum}&tmenu=${tmenu}`
+			} else if(tmenu == "sic") {
+				document.location.href = `/pos/tview/?tnum=${tnum}&tmenu=${tmenu}`
+			} else if(tmenu == "sea") {
+				alert("준비중입니다")
+				return false;
+			} else if(tmenu == "kita") {
+				document.location.href = `/pos/tview/?tnum=${tnum}&tmenu=${tmenu}`
+			} else return false;
+		}
+		else return false;
+	})
+
+	$(function(){
+		
+		$(".menu_select").on("click",function () {
+			const pcode = $(this).data('pcode')
+			alert(pcode)
+			$.post( 
+				"/pos/tview?tnum="+ tnum + "&tmenu=" + tmenu,
+				{ p_code : pcode },
+				function(data,status) {},
+			)
+		});
+	})
+
+</script>

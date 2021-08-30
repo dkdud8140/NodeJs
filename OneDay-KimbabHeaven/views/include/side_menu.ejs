@@ -1,0 +1,56 @@
+<style>
+	
+	div#side_menu {
+			width: 150px;
+			height: 100vh;
+			background-color: #eee;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			
+		}
+		ul {
+			justify-content: center;
+		}
+		li {
+			list-style: none;
+			text-align: center;
+			margin: 50px auto 50px auto;
+			padding-bottom: 10px;
+			font-weight: lighter;
+			color: #666;
+			border-bottom: 2px solid rgba(102, 102, 102, 0);
+		}
+		li:hover {
+			border-bottom: 2px solid #666;
+			cursor: pointer;
+		}
+</style>
+	<div id = "side_menu">
+		<div>
+		<ul>
+			<li id="tableBTN">
+				테이블
+			</li>
+			<li id="svBTN">
+				매출확인
+			</li>
+		</ul>
+		</div>
+	</div>
+
+
+<script>
+	document.querySelector("ul").addEventListener("click",(e)=>{
+		const menu = e.target;
+		if(menu.tagName == "LI") {
+			const menuid = menu.id ;
+			if(menuid == "tableBTN") {
+				document.location.href = `/`;
+			} else if(menuid == "svBTN") {
+				alert("아직 준비중입니다")
+				return false;
+			}
+		}
+	})
+</script>	

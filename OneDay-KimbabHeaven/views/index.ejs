@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>KimbabHeaven POS</title>
+
+	<link rel='stylesheet' href='/css/basic.css' />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<style>
+		section#main_body {
+			width: 100%;
+			height: 100vh;
+			display: inline-block;
+		}
+	</style>
+
+</head>
+
+  <body>
+	<%- include ('./include/side_menu.ejs') %>
+
+	<section id="main_body">
+
+		<% if(locals.status == "tview") { %>
+			<%- include ('./include/table_view.ejs') %>
+		<% } else { %>	
+
+			<%- include ('./include/table_list.ejs') %>
+		<% } %>
+	</section>	
+
+
+  </body>
+
+</html>

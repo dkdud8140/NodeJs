@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<style>
+		div.pa {
+			border: 1pc solid blue;
+			padding: 10px;
+			margin: 5px;
+		}
+
+		div.pa div{
+
+		}
+	</style>
+	<script>
+		document.addEventListener("DOMcontentLoadde",()=>{
+			document.querySelector("#ga").addEventListener("click",()=>{
+
+			})
+		})
+
+		// document.querySelector("document") === $(document)
+		//선택자
+		// $(document).ready(function({ // 23번 코드와 동일한 기능 , JQuery 문법이 적용되는 영역
+
+		// })
+
+		// 최근에 쓰이는 축소된 JQuery
+		$(function () {
+
+			$("#ga").on("click",function () {
+				alert($(this).text())		
+				//$(this) : 클릭된 자기 자신 , 화살표 함수 쓸 수 없음. 표준 함수 써야함
+			});
+			
+			$("#na").on("click",function () {
+				alert($(e.target).text())		
+			});
+
+			$("#da").on("click",function () {
+				$(this).fadeOut();		
+			});
+			
+
+		});
+
+		$(()=>{
+			//JQuery 코드가 작동되는 영역
+		})
+
+	</script>
+
+</head>
+<body>
+	<h1>반갑습니다</h1>
+	<div class="pa">
+		<div id="ga">GA</div>
+	</div >
+	<div class="pa">
+		<div id="na">NA</div>
+	</div>
+	<div class="pa">
+		<div id="da">DA</div>
+	</div>
+</body>
+</html>
