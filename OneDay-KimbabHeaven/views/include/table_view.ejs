@@ -151,6 +151,15 @@
 			</thead>
 
 			<tbody>
+				<% ORDERS.forEach((vo,index)=>{ %>
+					<tr>
+						<td>index</td>
+						<td><%- vo.o_pcode %></td>
+						<td><%- vo.o_price %></td>
+						<td><%- vo.o_count %></td>
+						<td><%- vo.o_tatal %></td>
+					</tr>
+				<% }) %>
 			</tbody>	
 			
 			<tfoot>
