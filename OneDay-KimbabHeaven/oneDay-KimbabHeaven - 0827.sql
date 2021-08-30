@@ -26,3 +26,9 @@ DESC tbl_nums;
 select * from tbl_nums;
 select * from tbl_orders;
 select * from tbl_products;
+
+alter table tbl_orders 
+add FOREIGN KEY(tblProductPCode) 
+REFERENCES tbl_tbl_products(p_code);
+
+ALTER TABLE tbl_orders ADD tblProductPCode 자료형 FIRST

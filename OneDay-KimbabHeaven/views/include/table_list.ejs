@@ -46,18 +46,9 @@
 	</div>
 
 	<div id = "tables">
-		<div class="table" id="table" data-tNum="1"><p>1번 테이블</p></div>
-		<div class="table" id="table" data-tNum="2"><p>2번 테이블</p></div>
-		<div class="table" id="table" data-tnum="3"><p>3번 테이블</p></div>
-		<div class="table" id="table" data-tnum="4"><p>4번 테이블</p></div>
-		<div class="table" id="table" data-tnum="5"><p>5번 테이블</p></div>
-		<div class="table" id="table" data-tnum="6"><p>6번 테이블</p></div>
-		<div class="table" id="table" data-tnum="7"><p>7번 테이블</p></div>
-		<div class="table" id="table" data-tnum="8"><p>8번 테이블</p></div>
-		<div class="table" id="table" data-tnum="9"><p>9번 테이블</p></div>
-		<div class="table" id="table" data-tnum="10"><p>10번 테이블</p></div>
-		<div class="table" id="table" data-tnum="11"><p>11번 테이블</p></div>
-		<div class="table" id="table" data-tnum="12"><p>12번 테이블</p></div>
+		<% for(let i = 1 ; i <13 ; i ++ ) { %>
+			<div class="table" id="table" data-tNum="<%- i %>"><p><%- i %>번 테이블</p></div>
+		<% } %>
 	</div>
 	
 </section>
@@ -65,7 +56,6 @@
 <script>
 	document.querySelector("div#tables").addEventListener("click",(e)=>{
 		const tId = e.target.id;
-		
 		if(tId == "table" ) {
 			const tNum = e.target.dataset.tnum ; 
 			document.location.href = `/pos/tview?tnum=${tNum}&tmenu=kim`;

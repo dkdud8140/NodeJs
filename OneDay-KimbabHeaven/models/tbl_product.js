@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) =>{
 		p_rem	:	{type:DataTypes.STRING(255)}	,
 	});
 
-
+	product.associate = (models)=>{
+		product.hasMany(models.tbl_orders, { foreignKey:"o_pcode" });
+	  };
+	
 	  return product ;
 }

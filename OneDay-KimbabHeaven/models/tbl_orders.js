@@ -10,5 +10,9 @@ module.exports = (sequelize, DataTypes) =>{
 		o_buyer	:	{type:DataTypes.INTEGER,}	,
 	});
 
+	orders.associate = (models)=>{
+        orders.belongsTo(models.tbl_product);
+    };
+
 	return orders ;
 }
