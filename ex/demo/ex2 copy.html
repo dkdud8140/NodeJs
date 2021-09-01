@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Magnet Demo</title>
+    <style>
+      #lines, #paper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      #paper {
+        display: flex;
+        flex-flow: column;
+      }
+      #tool {
+        padding: 1vmin;
+        background-color: #eee;
+        font-family: monospace;
+        line-height: 150%;
+      }
+      #container {
+        flex: 2 2;
+      }
+      .item { white-space: nowrap; }
+      input, button {
+        outline: none;
+        border: .1vmin solid #666;
+        font-family: monospace;
+        color: #333;
+      }
+      input[type=checkbox] {
+        width: 3vmin;
+        height: 3vmin;
+      }
+      button { background-color: #eee; }
+      button:active { transform: translate(.1vmin, .1vmin); }
+      #lines {
+        z-index: 1;
+        pointer-events: none;
+      }
+      .block {
+        position: absolute;
+        overflow: auto;
+      }
+      .block input {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    </style>
+    <script src="../magnet.min.js"></script>
+    <script>
+      const magnet = new Magnet();
+
+      magnet.distance(15);
+      magnet.attractable(true);
+      magnet.allowCtrlKey(true);
+
+      window.addEventListener('load', () => {
+        let domContainer = document.getElementById('container');
+        let domMask = document.getElementById('lines');
+        let domHoriMagnet = domMask.querySelector('.hori');
+        let domVertMagnet = domMask.querySelector('.vert');
+
+
+        // generate block
+        function genBlock() {
+			let rootWidth = window.innerWidth;
+			let rootHeight = window.innerHeight;
+			let width = Math.max(30, parseInt(Math.random()*rootWidth/2));
+			let height = Math.max(30, parseInt(Math.random()*rootHeight/2));
+			let block = document.createElement('span');
+			//   let checkbox = document.createElement('input');
+			block.style.width = `${width}px`;
+			block.style.height = `${height}px`;
+			block.style.top = `${parseInt(Math.random()*(rootHeight-height))}px`;
+			block.style.left = `${parseInt(Math.random()*(rootWidth-width))}px`;
+			block.style.backgroundColor = `rgba(${[0, 0, 0].map(() => parseInt(100+Math.random()*155)).concat(.25+(.75*Math.random())).join(', ')})`;
+			block.classList.add('block');
+
+			block.addEventListener('click', function() {
+				this.style.zIndex = 1;
+				this.parentElement.appendChild(this);
+			});
+
+			//   block.appendChild(checkbox);
+			domContainer.appendChild(block);
+			return block;
+        }
+        
+
+        // add one block
+        document.getElementById('add').onclick = () => magnet.add(genBlock());
+
+        // init blocks
+        for (let bInx=(2+parseInt(Math.random()*3)); 0<bInx; bInx--) {
+          magnet.add(genBlock());
+        }
+
+        magnet.setUseRelativeUnit(true);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="lines">
+      <span class="vert"></span>
+      <span class="hori"></span>
+    </div>
+    <div id="paper">
+      <span id="tool">
+        <button id="add">Add Block</button>
+      </span>
+      <div id="container"></div>
+    </div>
+  </body>
+</html>

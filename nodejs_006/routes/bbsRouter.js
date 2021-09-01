@@ -44,7 +44,7 @@ tbl_bbs.findOne({
   include:{model:tbl_reply},
 })
 .then((result) => {
-  console.log(result);
+  console.log("include 결과 : ", result);
   res.render("detail",{ BBS : result} );
 });
 });
