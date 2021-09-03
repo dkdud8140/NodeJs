@@ -31,4 +31,7 @@ alter table tbl_orders
 add FOREIGN KEY(tblProductPCode) 
 REFERENCES tbl_tbl_products(p_code);
 
-ALTER TABLE tbl_orders ADD tblProductPCode 자료형 FIRST
+ALTER TABLE tbl_orders ADD tblProductPCode VARCHAR(10) ;
+
+delete from tbl_orders
+where 1=1;  

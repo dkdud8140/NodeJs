@@ -120,5 +120,17 @@
       }
       document.location.href = url;
     });
+
+	document.querySelector("section.reply").addEventListener("click",(e)=>{
+		const click_tag = e.target;
+
+		if(click_tag.tagName === "DIV" && click_tag.className.includes("reply_delete") ) {
+			let rid= click_tag.dataset.rid;
+
+			if(confirm("댓글을 삭제할까요?")) {
+				document.location.href= "/bbs/reply/delete/" + rid ;
+			}
+		} 
+	})
   </script>
 </html>

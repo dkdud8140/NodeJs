@@ -1,4 +1,4 @@
-{	//사용할 DB
+{	
   "development": {
     "username": "node",
     "password": "1234",

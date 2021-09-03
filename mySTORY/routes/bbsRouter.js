@@ -65,4 +65,27 @@ router.post("/update",(req,res)=>{
 	});
 });
 
+router.post("/reply",(req,res)=>{
+	tbl_reply.create(req.body)
+	.then(result=>{
+		res.redirect("/bbs/detail?b_id=" + req.body.r_postId );
+	})
+})
+
+
+router.get("/reply/delete/:rid",(req,res)=>{
+	const rid = req.params.rid;
+	
+	tbl_reply.findByPk(rid)
+	.then(result=>{
+		const postId = result.r_postId
+		tbl_reply.destroy( 
+			{ where : {id:rid} } 
+		).then(()=>{
+			res.redirect(`/bbs/detail?b_id=${postId}`)
+		})
+	})
+})
+
+
 module.exports = router;
