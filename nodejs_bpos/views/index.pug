@@ -1,6 +1,7 @@
 extends layout
 
 block content
+	script(src="/js/table.js")
 	style.
 		section.main {
 			display:flex;
@@ -12,11 +13,19 @@ block content
 		div.table {
 			width:200px;
 			height:100px;
-			border:1px solid green;
 			margin:10px;
 
 			text-align:center;
 			line-height:100px;
+			background-color:navy;
+			font-weight:bold;
+			color:white;
+
+			cursor:pointer;
 		}
+		div.table:hover {
+			box-shadow : 1px 1px 1px black ;
+		}
+
 	-for(let i = 0; i < 12 ; i ++)
-		div.table !{i+1}번 테이블
+		div.table(data-table_id= i+1) !{i+1}번 테이블

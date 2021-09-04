@@ -1,0 +1,47 @@
+extends layout
+
+block content
+	script(src="/js/order.js")
+	style.
+		section.main {
+			display:flex;
+			flex-wrap:wrap;
+			justify-content:center;
+			align-item:center;
+		}
+		article  {
+			border:1px solid navy;
+			margin:10px;
+			padding:10px;
+			background-color:#eee;
+		}
+		article.order_list {
+			flex:1;
+		}
+		article.product_list{
+			flex:3;
+			display:flex;
+			flex-wrap:wrap;
+		}
+
+		article.order_list h1 {
+			background-color:#333;
+			color:white;
+			text-align:center;
+			padding : 1rem;
+		}
+		article.product_list div.menu {
+			width : 100px;
+			margin:5px;
+			background-color:white;
+			font-weight:bold;
+		}
+
+	article.order_list(data-table_id= table_id)
+		h1 !{table_id}번 테이블 주문 리스트
+	article.product_list
+		each menn_item,index in MENU
+			div.menu(data-menu_id= menu_item.pcode)
+				h3= menu_item.p_name
+				p= menu_item.p_price
+		
