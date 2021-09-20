@@ -17,6 +17,7 @@ block content
 		}
 		article.order_list {
 			flex:1;
+			overflow:auto;
 		}
 		article.product_list{
 			flex:3;
@@ -37,11 +38,16 @@ block content
 			font-weight:bold;
 		}
 
+		div.order_list {
+			display : flex;
+		}
+
 	article.order_list(data-table_id= table_id)
 		h1 !{table_id}번 테이블 주문 리스트
+
 	article.product_list
-		each menn_item,index in MENU
-			div.menu(data-menu_id= menu_item.pcode)
+		each menu_item,index in MENU
+			div.menu(data-menu_id= menu_item.p_code)
 				h3= menu_item.p_name
 				p= menu_item.p_price
 		
