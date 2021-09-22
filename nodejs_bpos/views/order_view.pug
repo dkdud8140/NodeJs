@@ -42,6 +42,22 @@ block content
 			display : flex;
 		}
 
+		div.order_list div{
+			flex :1;
+			margin : 5px ;
+			padding : 3px;
+			
+		}
+
+		div.order_list div.menu_delete {
+			flex : 0;
+			cursor:pointer;
+		}
+		div.order_list div.menu_delete:hover {
+			font-weight : bold;
+			color:red;
+		}
+
 	article.order_list(data-table_id= table_id)
 		h1 !{table_id}번 테이블 주문 리스트
 
@@ -50,4 +66,41 @@ block content
 			div.menu(data-menu_id= menu_item.p_code)
 				h3= menu_item.p_name
 				p= menu_item.p_price
+	style.
+		div.modal {
+			position:fixed;
+			top:0;
+			left:0;
+			width : 100vw;
+			height:100vh;
+			background-color:rgba(0,0,0,0.2);
+			z-index:10;
+			display:flex;
+			flex-flow:column;
+			display:none;
+		}
+		div.close {
+			text-align:right;
+			color:white;
+			font-size:30px;
+			padding:20px;
+		}
+		div.close span:hover{
+		}
+		div.message {
+			display : flex;
+			flex-flow:column;
+			justify-content:center;
+			align-items:center;
+			color:yellow;
+		}
+	div.modal
+		div.close
+			span &times;
+		div.message
+			h1 결제금액 : 
+				span.pay_total
+			h2 결제종류 : 
+				span.pay_qty
+			button 확인
 		

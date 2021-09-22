@@ -11,5 +11,11 @@ module.exports = (sequelize, DataTypes)=>{
 		{timestamps:false}
 	);
 
+	product.associate = (models)=>{
+		product.hasMany(models.tbl_table_orders,
+			{foreignKey :"to_pcode"}
+		);
+	};
+
 	return product;
 }
