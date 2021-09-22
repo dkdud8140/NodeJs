@@ -75,7 +75,6 @@ block content
 			height:100vh;
 			background-color:rgba(0,0,0,0.2);
 			z-index:10;
-			display:flex;
 			flex-flow:column;
 			display:none;
 		}
@@ -84,8 +83,7 @@ block content
 			color:white;
 			font-size:30px;
 			padding:20px;
-		}
-		div.close span:hover{
+			cursor:pointer;
 		}
 		div.message {
 			display : flex;
@@ -102,5 +100,5 @@ block content
 				span.pay_total
 			h2 결제종류 : 
 				span.pay_qty
-			button 확인
+			button.btn_pay_complete 확인
 		

@@ -48,13 +48,15 @@ router.get("/getorder/:table_id",( req,res)=>{
 	const table_id = req.params.table_id;
 
 	tbl_table_orders.findAll({
-		where : { to_table_id : table_id },
+		where : { to_table_id : table_id,
+					to_pay : null },
 		include : [
 			{model:tbl_product,require:false}
 		]
 	})
 	.then((result)=> res.json(result));
 })
+
 
 
 router.get("/order/:order_seq/delete",(req,res)=>{
@@ -71,5 +73,17 @@ router.get("/order/:order_seq/delete",(req,res)=>{
 	})
 })
 
+
+router.get("/paycomplete/:table_id",(req,res)=>{
+	const table_id = req.params.table_id;
+	tbl_table_orders.update (
+		{to_pay : "P"},
+		{where: {to_table_id : table_id}},
+	).then(()=>{
+		res.send("OK");
+	}).catch(()=>{
+		res.send("FAIL");
+	})
+});
 
 module.exports = router;

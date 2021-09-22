@@ -58,8 +58,9 @@ const add_order_list = ( order_list ) =>{
 	order_box.append(...orders);
 
 	const total_html = `<div class="order_list">
-							<div>합계</div> <div>${total_pay.count}</div>
-							<div>${total_pay.total}</div>
+							<div>합계</div>
+							<div class="order_pay_count">${total_pay.count}</div>
+							<div class="order_pay_total">${total_pay.total}</div>
 						</div>`;
 
 	order_box.innerHTML += total_html;
@@ -132,17 +133,46 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 	getOrders(table_id);
 
+	
 	document.addEventListener("click",(e)=>{
+
 		const button = e.target;
+		const modal = document.querySelector("div.modal");
+
 		if(button.tagName === "BUTTON") {
 			if(button.className.includes("btn_cash")) {
-				const modal = document.querySelector("div.modal");
+				document.querySelector("span.pay_qty").innerText = "현금결제";
 				modal.style.display ="flex";
-			} else {
-				alert("카드결제")
+			} else if (button.className.includes("btn_card")){
+				document.querySelector("span.pay_qty").innerText = "카드결제";
+				modal.style.display ="flex";
 			}
+			const order_pay_total = document.querySelector("div.order_pay_total").innerText;
+			document.querySelector("span.pay_total").innerText = order_pay_total;
 		}
+
+	});
+
+
+	document.querySelector("div.close span").addEventListener("click",(e)=>{
+		document.querySelector("div.modal").style.display = "none";
 	})
 
+	document.querySelector("button.btn_pay_complete").addEventListener("click", (e) => {
+ 
+		if (confirm("결제를 진행할까요?")) {
+
+		const article_order = document.querySelector("article.order_list")
+		const table_id = article_order.dataset.table_id;
+
+		fetch(`/pos/paycomplete/${table_id}`).then(res=>res.text())
+		.then(result => {
+			if(result === "OK") {
+				document.querySelector("div.modal").style.display = "none";
+				getOrders(table_id);
+				}
+			})
+        };
+    });
 
 })
