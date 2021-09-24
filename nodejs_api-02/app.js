@@ -5,21 +5,25 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const mongoose = require("mongoose");
-const mongoLocalURL = "mongdb://localhost:27017"
+const mongoLocalURL = "mongodb://localhost:27017"
 const mongoAtlasURL =
 	"mongodb+srv://cay:12341234@cluster0.sv5b5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority ";
 
 const dbConn = mongoose.connection;
 dbConn.once("open",()=>{
-
+	console.log("MongoDB Connection Success!!");
+})
+dbConn.on("error",()=>{
+	console.err;
 })
 
-
 mongoose.connect(`${mongoAtlasURL}`);
+// mongoose.connect(`${mongoLocalURL}`);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const apiRouter = require("./routes/apiRouter")
+const bbsRouter = require("./routes/bbsRouter")
 
 var app = express();
 
@@ -36,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/api",apiRouter);
+app.use("/bbs",bbsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
